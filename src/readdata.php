@@ -1,6 +1,20 @@
 <?php
 // Database connection
-$conn = new mysqli('mysql-container', 'user', 'password', 'php_demo');
+<?php
+$servername = "db"; // Matches the service name in docker-compose.yml
+$username = "user";
+$password = "password";
+$dbname = "php_demo";
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+echo "Connected successfully";
+
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = $_POST['name'];
