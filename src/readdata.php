@@ -1,6 +1,6 @@
 <?php
 // Database connection
-$conn = new mysqli('db', 'user', 'password', 'php_demo');
+$conn = new mysqli('mysql-container', 'user', 'password', 'php_demo');
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = $_POST['name'];
