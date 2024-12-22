@@ -1,5 +1,4 @@
-<?php
-// Database connection
+
 <?php
 $servername = "db"; // Matches the service name in docker-compose.yml
 $username = "user";
