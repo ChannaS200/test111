@@ -4,28 +4,27 @@ services:
   php-apache:
     build: .
     ports:
-      - "8080:80"
+      - "8080:80" # Host port 8080 mapped to container port 80
     volumes:
-      - ./src:/var/www/html
+      - ./src:/var/www/html # Mount application source code
     depends_on:
-      - db
+      - db # Ensure db starts before php-apache
 
   db:
-    image: mysql:5.7
-    container_name: mysql-container
-    restart: always
+    image: mysql:5.7 # Use MySQL 5.7 image
+    container_name: mysql-container # Name the MySQL container
+    restart: always # Restart policy for resilience
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: php_demo
-      MYSQL_USER: user
-      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: root # Root password for MySQL
+      MYSQL_DATABASE: php_demo # Create database php_demo
+      MYSQL_USER: user # Create a non-root user
+      MYSQL_PASSWORD: password # Password for the user
     ports:
-      - "3307:3306"
+      - "3307:3306" # Host port 3307 mapped to container port 3306
     volumes:
-      - db_data:/var/lib/mysql
-      # Optional: Ensure your init.sql file is mounted correctly
-      # If init.sql is not needed, remove the line below.
-      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - db_data:/var/lib/mysql # Persistent storage for MySQL data
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql # Execute init.sql on first run
 
 volumes:
   db_data:
+    driver: local # Ensure local volume for persistence
