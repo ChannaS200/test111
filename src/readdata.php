@@ -1,4 +1,3 @@
-
 <?php
 $servername = "db"; // Matches the service name in docker-compose.yml
 $username = "user";
@@ -12,8 +11,6 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
-echo "Connected successfully";
-
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = $_POST['name'];
