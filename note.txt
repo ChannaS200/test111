@@ -1,0 +1,34 @@
+pipeline {
+    agent any
+    stages {
+        stage('Clone Repository') {
+            steps {
+                git branch: 'main', url: 'https://github.com/ChannaS200/msc_test.git'
+            }
+        }
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    docker.build('channasandakelum7523/php-test')
+                }
+            }
+        }
+        stage('Push to Docker Hub') {
+            steps {
+                script {
+                    // Docker login and push for Windows
+                    bat '''
+                        echo 'dockerhub-password' | docker login -u "channasandakelum7523" --password-stdin
+                        docker push channasandakelum7523/php-test:latest
+                    '''
+                }
+            }
+            
+        }
+        stage('Run Docker Compose') {
+            steps {
+                bat 'docker-compose up -d'
+            }
+        }
+    }
+}
